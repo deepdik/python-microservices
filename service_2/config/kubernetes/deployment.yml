@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-2
+  labels:
+    app: service-2
+spec:
+  replicas: 3
+  template:
+    metadata:
+      name: service-2
+      labels:
+        app: service-2
+    spec:
+      containers:
+        - name: service-2
+          image: dk5f95/service_2:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 6000
+          env:
+            - name: SERVICE_1
+              value: http://service_1
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: service-2
